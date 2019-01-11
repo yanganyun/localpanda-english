@@ -1,12 +1,14 @@
 {
   "pages":[
     "pages/index/index",
-    "pages/logs/logs"
+    "pages/class/class",
+    "pages/user/user",
+    "pages/about/about"
   ],
   "window":{
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
+    "navigationBarTitleText": "乐盼达英语",
     "navigationBarTextStyle":"black"
   },
   "tabBar": {
@@ -19,16 +21,22 @@
         "selectedIconPath": "images/all2.png"
       },
       {
-        "pagePath": "pages/logs/logs",
-        "text": "图册",
+        "pagePath": "pages/class/class",
+        "text": "分类",
         "iconPath": "images/pic.png",
         "selectedIconPath": "images/pic2.png"
       },
       {
-        "pagePath": "pages/logs/logs",
+        "pagePath": "pages/user/user",
         "text": "我的",
         "iconPath": "images/account.png",
         "selectedIconPath": "images/account2.png"
+      },
+      {
+        "pagePath": "pages/about/about",
+        "text": "关于",
+        "iconPath": "images/pic.png",
+        "selectedIconPath": "images/pic2.png"
       }
     ]
   }

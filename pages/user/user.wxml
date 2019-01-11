@@ -1,0 +1,20 @@
+<!--index.wxml-->
+<view class="container">
+
+  <view class="page_box">
+    <view class="page_tit">我的班级</view>
+  </view>
+
+  <view class="page_box">
+    <view class="page_tit">我的报名</view>
+  </view>
+
+  <view class="page_box">
+    <view class="page_tit">我的拼团</view>
+  </view>
+  
+  
+
+
+  
+</view>

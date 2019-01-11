@@ -1,0 +1,43 @@
+<!--index.wxml-->
+<view class="container">
+
+  <view class="page_box">
+    <view class="page_tit">About Local Panda</view>
+    <text class="about_info">We are a new, different kind of China travel platform that is dedicated to improving tourists' travel experiences. Made up of a diverse team of Chinese and Westerners, we share a fascination with China and a deep love of travel.</text>
+    <text class="about_info">Our goal is to make traveling in China burden-free by delivering real, memorable experiences, connecting customers directly with knowledgeable local guides, personalizing trip-planning, and streamlining the booking process.</text>
+  </view>
+
+  <view class="page_box">
+    <view class="page_tit">联系我们</view>
+    <view class='form_list'>
+      <input placeholder="姓名" bindinput='bindName' />
+    </view>
+    <view class='form_list'>
+      <input placeholder="邮箱" bindinput='bindEmail' />
+    </view>
+    <view class='form_list'>
+      <textarea  placeholder="留言" bindinput='bindMessage' />
+    </view>
+
+    <view class='form_list mt20'>
+      <button
+        type="primary"
+        size="default"
+        loading="{{loading}}"
+        plain="{{loading}}"
+        disabled="{{loading}}"
+        bindtap="submitFn"
+      >
+        Submit
+      </button>
+    </view>
+
+    
+  </view>
+
+  
+  
+
+
+  
+</view>

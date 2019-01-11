@@ -1,0 +1,16 @@
+<!--index.wxml-->
+<view class="container">
+
+  <view class="page_box">
+    <view class="page_tit">口语培训</view>
+  </view>
+
+  <view class="page_box">
+    <view class="page_tit">阅读培训</view>
+  </view>
+  
+  
+
+
+  
+</view>

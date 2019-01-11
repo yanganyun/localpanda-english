@@ -7,34 +7,8 @@ Page({
     motto: 'Hello World',
     userInfo: {},
     hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo'),
-
-    banner:{
-      imgUrls: [
-        'https://m.360buyimg.com/mobilecms/s750x366_jfs/t1/18349/10/4977/86937/5c370dafE88b3f32e/eb2693edb3708a5c.jpg!cr_1125x549_0_72!q70.jpg.dpg',
-        'https://m.360buyimg.com/mobilecms/s750x366_jfs/t1/30282/11/118/153573/5c380bd3Ecf292c79/b81b79ab375d2081.jpg!cr_1125x549_0_72!q70.jpg.dpg',
-        'https://m.360buyimg.com/mobilecms/s750x366_jfs/t1/7259/10/12551/189257/5c3703e9E29411761/6e4636eb1cdc5e06.jpg!cr_1125x549_0_72!q70.jpg.dpg'
-      ],
-      indicatorDots: false,
-      autoplay: false,
-      interval: 4000,
-      duration: 400,
-      imgheight: '',
-    }
+    canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
-  imageLoad: function (e) {//获取图片真实宽度  
-    var imgwidth = e.detail.width,
-      imgheight = e.detail.height,
-      //宽高比  
-      ratio = imgwidth / imgheight;
-    //计算的高度值  
-    var viewHeight = 750 / ratio;
-    var imgheight = viewHeight;
-    this.setData({
-      'banner.imgheight': imgheight
-    })
-  },
-
   //事件处理函数
   bindViewTap: function() {
     wx.navigateTo({
@@ -76,12 +50,5 @@ Page({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
     })
-  },
-  
-  onShareAppMessage: function () {
-    return {
-      title: '乐盼达英语',
-      path: 'pages/index/index'
-    }
   }
 })

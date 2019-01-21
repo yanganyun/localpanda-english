@@ -1,0 +1,63 @@
+/**index.wxss**/
+.group_page {
+  padding: 30rpx;
+}
+.order_list{
+  overflow: hidden;
+  font-size: 28rpx;
+  padding: 24rpx 0 24rpx 196rpx;
+}
+.order_list_tit{
+  float: left;
+  line-height: 88rpx;
+  width: 196rpx;
+  margin-left: -196rpx;
+  font-weight: bold;
+} 
+.order_input{
+  border: #ddd solid 1px;
+  height: 86rpx;
+  line-height: 86rpx;
+	border-radius: 6rpx;
+  padding: 0 23rpx;
+}
+
+.max_list{
+  padding-left: 0;
+}
+.max_list .order_list_tit{
+  float: none;
+  margin-left: 0;
+  line-height: 44rpx;
+}
+
+.check_list_all{ margin-top: 10rpx;}
+
+.order_list .weui-cell{
+  padding:6px 15px;
+  padding-left: 0;
+  position: inherit;
+}
+.course_detail{
+  color: #1bbc9d;
+  text-decoration: underline;
+  margin-left: 10px;
+}
+
+.order_list .weui-cell_select{
+  border: #ddd solid 1px;
+  height: 88rpx;
+  padding: 0;
+}
+.order_list .weui-select{ border: none;}
+.order_list .weui-select::before{border-width: 0 2px 2px 0; border-color: #C8C8CD;}
+
+
+
+
+
+
+
+
+
+

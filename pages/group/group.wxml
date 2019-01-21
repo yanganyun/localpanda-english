@@ -1,0 +1,47 @@
+<!--index.wxml-->
+<view class="group_page">
+  <view class='order_list'>
+    <view class='order_list_tit'>联系人 <text class='red'>*</text></view>
+    <input class='order_input' type='text'></input>
+  </view>
+
+  <view class='order_list'>
+    <view class='order_list_tit'>联系电话 <text class='red'>*</text></view>
+    <input class='order_input' type='text'></input>
+  </view>
+
+  <view class='order_list max_list'>
+    <view class='order_list_tit'>试听体验课程 <text class='red'>*</text></view>
+    <view class='check_list_all'>
+      <!-- <view class='check_list'><icon class="weui-icon-checkbox_circle" type="circle"></icon>零基础学童英语课程</view>
+      <view class='check_list'><icon class="weui-icon-checkbox_success" type="success"></icon>零基础学童英语课程</view> -->
+      <radio-group bindchange="courseChange">
+        <label class="weui-cell weui-check__label" wx:for="{{courseItems}}" wx:key="name">
+            <radio class="weui-check" value="{{item.name}}" checked="false"/>
+
+            <view class="weui-cell__hd weui-check__hd_in-checkbox">
+              <icon class="weui-icon-checkbox_circle" type="circle" size="23" wx:if="{{courseValue!==item.name}}"></icon>
+              <icon class="weui-icon-checkbox_success" type="success" size="23" wx:if="{{courseValue==item.name}}"></icon>
+            </view>
+            <view class="weui-cell__bd">{{item.name}} <text class='course_detail' bindtap="courseDetail" data-id="{{item.id}}">了解课程</text></view>
+        </label>
+      </radio-group>
+    </view>
+  </view>
+
+
+  <view class='order_list'>
+    <view class='order_list_tit'>组团人数 <text class='red'>*</text></view>
+    <view class="weui-cell weui-cell_select">
+      <view class="weui-cell__bd">
+        <picker bindchange="bindPeopleChange" value="{{peopleIndex}}" range="{{people}}">
+          <view class="weui-select">{{people[peopleIndex]}}</view>
+        </picker>
+      </view>
+    </view>
+  </view>
+
+
+
+  
+</view>

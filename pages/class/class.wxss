@@ -32,3 +32,21 @@
 .page_tit{
   font-size: 14px;
 }
+
+.pin_list_box{
+  overflow: hidden;
+  margin-top: 30rpx;
+}
+.pin_list{
+  float: left;
+  width: 140rpx;
+  height: 140rpx;
+  margin-right: 10rpx;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.pin_list image{
+  display: block;
+  width: 100%;
+  height: 100%;
+}

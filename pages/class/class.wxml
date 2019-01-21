@@ -3,6 +3,13 @@
 
   <view class="page_box">
     <view class="page_tit">口语培训</view>
+    <view class='pin_list_box'>
+      <view class='pin_list'><image src='https://www.fedrobots.com/images/head1.jpg' width="30%"></image></view>
+      <view class='pin_list'><image src='https://www.fedrobots.com/images/head1.jpg' width="30%"></image></view>
+      <view class='pin_list'><image src='https://www.fedrobots.com/images/head1.jpg' width="30%"></image></view>
+    </view>
+
+    <button class='weui-btn' type="primary" bindtap='bindPintuan'>拼团</button>
   </view>
 
   <view class="page_box">

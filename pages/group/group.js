@@ -9,7 +9,35 @@ Page({
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     loading:false,
-    groupOrderId:null
+    groupOrderId:null,
+
+    //课程
+    courseValue: '',
+    courseItems:[
+      { 'name':'零基础学童英语课程',id:123123},
+      { 'name': '高阶版对接入学英语课程', id: 123123 },
+    ],
+
+    //组团人数
+    people: [2,3,4,5],
+    peopleIndex: 0,
+
+  },
+  //选择课程
+  courseChange(e){
+    this.setData({
+      courseValue: e.detail.value
+    });
+  },
+  //查看课程详情
+  courseDetail(e){
+    console.log(e.target.dataset.id);
+  },
+  //选择组团人数
+  bindPeopleChange(e){
+    this.setData({
+      peopleIndex: e.detail.value
+    })
   },
   //事件处理函数
   bindViewTap: function() {

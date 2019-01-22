@@ -1,7 +1,17 @@
 /**index.wxss**/
 .group_page {
-  padding: 30rpx;
+  padding:0 30rpx 50rpx;
+  box-sizing: border-box;
+  width: 100vw;
 }
+.course_title{
+  background-color: #f5f7f6;
+  width: 100vw;
+  padding: 45rpx 30rpx;
+  box-sizing: border-box;
+  margin-left: -30rpx;
+}
+
 .order_list{
   overflow: hidden;
   font-size: 28rpx;
@@ -29,11 +39,12 @@
   float: none;
   margin-left: 0;
   line-height: 44rpx;
+  width: 100%;
 }
 
 .check_list_all{ margin-top: 10rpx;}
 
-.order_list .weui-cell{
+.order_list .weui-check__label{
   padding:6px 15px;
   padding-left: 0;
   position: inherit;
@@ -49,8 +60,83 @@
   height: 88rpx;
   padding: 0;
 }
+.weui-cell_select::before{
+  display: none;
+}
 .order_list .weui-select{ border: none;}
 .order_list .weui-select::before{border-width: 0 2px 2px 0; border-color: #C8C8CD;}
+
+.time_list_box{ text-align: center; margin-top: 10rpx; }
+.time_list{
+  display: inline-block;
+  height: 88rpx;
+  line-height: 88rpx;
+  width: 48%;
+  margin: 10rpx 1%;
+  text-align: center;
+  font-size: 26rpx;
+}
+.time_list_time{
+  background-color: #f5f7f6;
+  border-radius: 6px;
+}
+.time_checked{
+  background-color: #1bbc9d;
+  color:#fff;
+}
+
+.remarks{
+  
+}
+.remarks .weui-textarea{
+  margin-top: 20rpx;
+  height: 256rpx;
+  box-sizing: border-box;
+  padding: 20rpx;
+  border-radius: 6px;
+	border: solid 1px #ebebeb;
+}
+
+.check_list_radio .weui-icon-checkbox_circle,.check_list_radio .weui-icon-checkbox_success_dian{
+  width: 20px;
+  height: 20px;
+  border: #ccc solid 1px;
+  box-sizing: border-box;
+  border-radius: 50%;
+  margin: 1px 4.6px 0;
+  vertical-align: top;
+  
+}
+.check_list_radio .weui-icon-checkbox_success_dian{
+  border: 6px solid #1bbc9d;
+}
+
+.float_bottom{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  box-sizing: border-box;
+  padding: 0 30rpx;
+  z-index: 9;
+  width: 100%;
+  height: 138rpx;
+  background-color: #fff;
+  border-top: #ebebeb solid 1px;
+}
+.float_bottom text{
+  display: block;
+  font-size: 24rpx;
+  margin-top: 25rpx;
+}
+.float_bottom .btn{
+  float:right;
+  margin: 20rpx 0 0 0;
+}
+.float_bottom .price{
+  font-size: 32rpx;
+  color: #fe483e;
+  font-weight: bold;
+}
 
 
 

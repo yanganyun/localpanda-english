@@ -12,19 +12,33 @@ Page({
     groupOrderId:null,
 
     //课程
+    courseTitle: '试听体验课程：儿童外教启蒙/Wonders课程浦东碧云百富丽山庄',
     courseValue: '',
     courseItems:[
       { 'name':'零基础学童英语课程',id:123123},
-      { 'name': '高阶版对接入学英语课程', id: 123123 },
+      { 'name': '高阶版对接入学英语课程', id: 23232 },
     ],
 
     //组团人数
     people: [2,3,4,5],
     peopleIndex: 0,
 
+    //可选时间
+    tryTimeArr: [
+      { keyName: 'WORKDAY_DAY', text: '工作日白天 9:00~12:00'},
+      { keyName: 'WORKDAY_NIGHT', text: '工作日晚上 18:00~20:00', checked:true},
+      { keyName: 'WEEKEND_DAY', text: '双休日白天 9:00~12:00', checked: true},
+      { keyName: 'WEEKEND_NIGHT', text: '双休日晚上 18:00~20:00' },
+    ],
+    tryTime: ['WORKDAY_NIGHT','WEEKEND_DAY'],
+
+    //提供场地
+    hasSpace:false
+
   },
   //选择课程
   courseChange(e){
+    console.log(e.detail.value)
     this.setData({
       courseValue: e.detail.value
     });
@@ -44,6 +58,12 @@ Page({
     // wx.navigateTo({
     //   url: '../logs/logs'
     // })
+  },
+  hasSpaceChange(e){
+    console.log(this.data.hasSpace);
+    this.setData({
+      hasSpace: !this.data.hasSpace
+    });
   },
   //创建团
   createGroup(){

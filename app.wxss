@@ -17,6 +17,21 @@ view,block,text,textarea,input{
 
 .red{ color: #f00;}
 
-.mt20{ margin-top: 20px!important;}
-.mt30{ margin-top: 30px!important;}
-.mt40{ margin-top: 40px!important;}
+.mt20{ margin-top: 20rpx!important;}
+.mt30{ margin-top: 30rpx!important;}
+.mt40{ margin-top: 40rpx!important;}
+
+
+.btn{
+  color: #fff;
+  display: block;
+  background-color: #1bbc9d;
+  background-image: linear-gradient(-90deg, #009efd 0%, #1bbc9d 100%), linear-gradient(#1bbc9d, #1bbc9d);
+	text-align: center;
+	border-radius: 48rpx;
+  height: 96rpx;
+  line-height: 96rpx;
+  font-size: 32rpx;
+  box-sizing: border-box;
+  padding:0 75rpx;
+}

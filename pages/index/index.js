@@ -9,6 +9,8 @@ Page({
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
 
+    courses:[],
+
     banner:{
       imgUrls: [
         'https://m.360buyimg.com/mobilecms/s750x366_jfs/t1/18349/10/4977/86937/5c370dafE88b3f32e/eb2693edb3708a5c.jpg!cr_1125x549_0_72!q70.jpg.dpg',
@@ -41,7 +43,34 @@ Page({
       url: '../logs/logs'
     })
   },
+  
+  //获取列表
+  getCourses(){
+    var self=this;
+    wx.request({
+      url: 'https://www.svenglish.cn/api/order/courses', // 仅为示例，并非真实的接口地址
+      data: {
+        groupOrderId: '148228562'
+      },
+      method: 'POST',
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success(res) {
+        if (res.data.code==1){
+          self.setData({
+            courses: res.data.data
+          })
+        }
+      },
+      fail(res) {
+        
+      }
+    })
+  },
   onLoad: function () {
+
+    this.getCourses();
     
     if (app.globalData.userInfo) {
       this.setData({
@@ -72,7 +101,7 @@ Page({
     }
   },
   getUserInfo: function(e) {
-    console.log(e)
+    //获取用户信息
     app.globalData.userInfo = e.detail.userInfo;
     this.setData({
       userInfo: e.detail.userInfo,
@@ -85,5 +114,24 @@ Page({
       title: '乐盼达英语',
       path: 'pages/index/index'
     }
+  },
+  startGroup() {
+    wx.navigateTo({
+      url: '/pages/group/group',
+    })
+  },
+  addGroup(e) {
+    var dataset = e.currentTarget.dataset;
+    //判断是否已经拼团
+    if (app.globalData.openId == this.data.courses[dataset.index].openId){
+      wx.showModal({
+        content: '您已经参加过了，请查看我的拼团！',
+        showCancel: false
+      });
+      return false;
+    }
+    wx.navigateTo({
+      url: '/pages/group/group?groupOrderId=' + dataset.id,
+    })
   }
 })

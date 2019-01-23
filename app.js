@@ -23,7 +23,6 @@ App({
           // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
           wx.getUserInfo({
             success: res => {
-              console.log(res);
               // 可以将 res 发送给后台解码出 unionId
               this.globalData.userInfo = res.userInfo;
               
@@ -32,8 +31,6 @@ App({
                 encryptedData: res.encryptedData,
                 iv: res.iv
               };
-
-              console.log(JSON.stringify(putData));
 
               wx.request({
                 url: 'https://www.svenglish.cn/api/wechat/user-info', // 仅为示例，并非真实的接口地址

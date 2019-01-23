@@ -1,6 +1,6 @@
 /**index.wxss**/
 .group_page {
-  padding:0 30rpx 50rpx;
+  padding:0 30rpx 200rpx;
   box-sizing: border-box;
   width: 100vw;
 }

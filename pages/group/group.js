@@ -4,7 +4,9 @@ const app = getApp()
 
 Page({
   data: {
-    motto: 'Hello World',
+    originator: true,
+    name: '',
+    mobile: '',
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
@@ -13,10 +15,11 @@ Page({
 
     //课程
     courseTitle: '试听体验课程：儿童外教启蒙/Wonders课程浦东碧云百富丽山庄',
-    courseValue: '',
+    courseId: '',
     courseItems:[
-      { 'name':'零基础学童英语课程',id:123123},
-      { 'name': '高阶版对接入学英语课程', id: 23232 },
+      { 'name':'零基础学童英语课程',id: 10001},
+      { 'name': '高阶版对接入学英语课程', id: 10002 },
+      { 'name': '初中英语课程', id: 10003 },
     ],
 
     //组团人数
@@ -25,27 +28,30 @@ Page({
 
     //可选时间
     tryTimeArr: [
-      { keyName: 'WORKDAY_DAY', text: '工作日白天 9:00~12:00'},
-      { keyName: 'WORKDAY_NIGHT', text: '工作日晚上 18:00~20:00', checked:true},
-      { keyName: 'WEEKEND_DAY', text: '双休日白天 9:00~12:00', checked: true},
-      { keyName: 'WEEKEND_NIGHT', text: '双休日晚上 18:00~20:00' },
+      { keyName: 'WORKDAY_DAY', text: '工作日白天 9:00~12:00', checked: false},
+      { keyName: 'WORKDAY_NIGHT', text: '工作日晚上 18:00~20:00', checked:false},
+      { keyName: 'WEEKEND_DAY', text: '双休日白天 9:00~12:00', checked: false},
+      { keyName: 'WEEKEND_NIGHT', text: '双休日晚上 18:00~20:00', checked: false },
     ],
-    tryTime: ['WORKDAY_NIGHT','WEEKEND_DAY'],
+    tryTime: [],
 
+    //备注说明
+    comments: '',
     //提供场地
-    hasSpace:false
+    hasSpace:false,
+
+    amount: 6388
 
   },
   //选择课程
   courseChange(e){
-    console.log(e.detail.value)
     this.setData({
-      courseValue: e.detail.value
+      courseId: e.detail.value
     });
   },
   //查看课程详情
   courseDetail(e){
-    console.log(e.target.dataset.id);
+    console.log(e.currentTarget.dataset.id);
   },
   //选择组团人数
   bindPeopleChange(e){
@@ -59,51 +65,160 @@ Page({
     //   url: '../logs/logs'
     // })
   },
+  changeTime(e){
+    var index = e.currentTarget.dataset.index;
+    var newData = JSON.parse(JSON.stringify(this.data.tryTimeArr));
+    var checkNum = 0;
+    for (var i = 0; i < newData.length;i++){
+      if (newData[i].checked){
+        checkNum++;
+      }
+    }
+    if (checkNum > 1 && !newData[index].checked){
+      return;
+    }
+
+    
+    newData[index].checked = !newData[index].checked;
+    this.setData({
+      tryTimeArr: newData
+    });
+
+    var tryTimeArr = this.data.tryTimeArr;
+    var newTime = [];
+    for (var i = 0; i < tryTimeArr.length; i++) {
+      if (tryTimeArr[i].checked) {
+        newTime.push(tryTimeArr[i].keyName);
+      }
+    }
+    this.setData({
+      tryTime:newTime
+    })
+  },
   hasSpaceChange(e){
-    console.log(this.data.hasSpace);
     this.setData({
       hasSpace: !this.data.hasSpace
     });
   },
+  bindName(e) {
+    this.setData({
+      name: e.detail.value
+    })
+  },
+  bindMobile(e) {
+    this.setData({
+      mobile: e.detail.value
+    })
+  },
+  bindComments(e){
+    this.setData({
+      comments: e.detail.value
+    })
+  },
   //创建团
   createGroup(){
     var self = this;
-    wx.request({
-      url: 'https://www.svenglish.cn/api/order/group', // 仅为示例，并非真实的接口地址
-      data: {
-        "courseId": 123123,
-        "groupNumberNeed": 4
-      },
-      method: 'PUT',
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success(res) {
-        if (res.data.code==1) {
-          self.setData({
-            groupOrderId: res.data.groupOrderId
-          });
-          self.addGroup();
-        }
+
+    if (self.data.name == ''){
+      wx.showModal({
+        content: '请填写联系人',
+        showCancel: false
+      });
+    } else if (!/^(13|14|15|17|18)\d{9}$/.test(self.data.mobile)){
+      wx.showModal({
+        content: '请填写正确的联系电话',
+        showCancel: false
+      });
+    } else if (!self.data.courseId) {
+      wx.showModal({
+        content: '请选择体验课程',
+        showCancel: false
+      });
+    } else if (self.data.tryTime.length==0) {
+      wx.showModal({
+        content: '请选择试听时间',
+        showCancel: false
+      });
+    }else{
+      
+      //检测并开启loading
+      if (this.data.loading) {
+        return;
       }
-    })
+      this.setData({
+        loading: true
+      });
+
+      console.log(1111111111111)
+
+      wx.request({
+        url: 'https://www.svenglish.cn/api/order/group', // 仅为示例，并非真实的接口地址
+        data: {
+          "courseId": this.data.courseId,
+          "groupNumberNeed": this.data.people[this.data.peopleIndex]
+        },
+        method: 'PUT',
+        header: {
+          'content-type': 'application/json' // 默认值
+        },
+        success(res) {
+          if (res.data.code==1) {
+            self.setData({
+              groupOrderId: res.data.data.groupOrderId
+            });
+            self.addGroup();
+          }else{
+            //关闭loading
+            self.setData({
+              loading: false
+            });
+            wx.showModal({
+              content: '请求失败，请重试！',
+              showCancel: false
+            });
+          }
+        },
+        fail(res) {
+          //关闭loading
+          self.setData({
+            loading: false
+          });
+          wx.showModal({
+            content: '请求失败，请重试！',
+            showCancel: false
+          });
+        }
+      })
+    }
   },
   //加入团
   addGroup(){
     var self = this;
+    
     var putData = {
       "groupOrderId": this.data.groupOrderId,
       "openId": app.globalData.openId,
-      "courseId": 123123,  //课程ID
-      "originator": false,  //是否发起人
-      "amount": 10.25,  //价格
-      "groupNumberNeed": 4,  //成团人数
+      "originator": this.data.originator,  //是否发起人
+      "courseId": this.data.courseId,  //课程ID
+      "provideTime": this.data.tryTime.join(','),
+      "contactName": this.data.name,
+      "contactPhone": this.data.mobile,
+      "amount": this.data.amount,  //价格
+      "comments": this.data.comments,
+      "provideSpace": this.data.hasSpace,
     };
+
+    //检测并开启loading
+    if (this.data.loading) {
+      return;
+    }
     this.setData({
       loading: true
     });
 
-    console.log(putData);
+    if (!putData.originator){
+      delete putData.courseId
+    }
 
     wx.request({
       url: 'https://www.svenglish.cn/api/order/course', // 仅为示例，并非真实的接口地址
@@ -114,23 +229,14 @@ Page({
       },
       success(res) {
 
-        if (res.data.succeed) {
-          wx.showModal({
-            title: '提示',
-            content: '提交成功！我们会尽快与您取得联系！',
-            success: function (res) {
-              wx.reLaunch({
-                url: '/pages/class/class'
-              })
-            }
+        if (res.data.code!=1) {
+          //关闭loading
+          self.setData({
+            loading: false
           });
-
         }
 
-        //关闭loading
-        self.setData({
-          loading: false
-        });
+        
       },
       fail(res) {
         //关闭loading
@@ -140,50 +246,82 @@ Page({
       }
     })
   },
-  bindPintuan:function(){
 
+  //拼团
+  bindPintuan:function(){
+    var self = this;
     if (this.data.groupOrderId){
-      this.addGroup();
+      
+
+      if (self.data.name == '') {
+        wx.showModal({
+          content: '请填写联系人',
+          showCancel: false
+        });
+      } else if (!/^(13|14|15|17|18)\d{9}$/.test(self.data.mobile)) {
+        wx.showModal({
+          content: '请填写正确的联系电话',
+          showCancel: false
+        });
+      } else if (self.data.tryTime.length == 0) {
+        wx.showModal({
+          content: '请选择试听时间',
+          showCancel: false
+        });
+      } else {
+        this.addGroup();
+      }
+      
     }else{
       this.createGroup();
     }
     
     
   },
-  onLoad: function () {
-    if (app.globalData.userInfo) {
-      this.setData({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true
-      })
-    } else if (this.data.canIUse){
-      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-      // 所以此处加入 callback 以防止这种情况
-      app.userInfoReadyCallback = res => {
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
-        })
-      }
-    } else {
-      // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
-        success: res => {
-          app.globalData.userInfo = res.userInfo
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
-          })
+  //获取团的课程id
+  getCourseId(groupOrderId){
+    var self = this;
+    wx.request({
+      url: 'https://www.svenglish.cn/api/order/groups', // 仅为示例，并非真实的接口地址
+      data: {
+        groupOrderId: groupOrderId
+      },
+      method: 'POST',
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success(res) {
+        if (res.data.code == 1){
+          var courseId = res.data.data[0].courseId;
+          //设置团标题和团id
+          var courseItems = self.data.courseItems;
+          for (var i = 0; i < courseItems.length; i++) {
+            if (courseItems[i].id == courseId) {
+              self.setData({
+                courseId: courseId,
+                courseTitle: courseItems[i].name
+              });
+              break;
+            }
+          }
         }
-      })
-    }
-  },
-  getUserInfo: function(e) {
-    console.log(e)
-    app.globalData.userInfo = e.detail.userInfo
-    this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
+        
+      }
     })
+  },
+  onLoad: function (e) {
+    console.log(e);
+    if (e.groupOrderId){
+      this.setData({
+        originator: false,
+        groupOrderId: e.groupOrderId
+      });
+      //如果是加入的团，则获取课程ID，用于展示课程标题
+      this.getCourseId(e.groupOrderId);
+    }
+
+
+
+    
   }
 })

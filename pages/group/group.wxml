@@ -1,19 +1,19 @@
 <!--index.wxml-->
 <view class="group_page">
 
-  <view class='course_title'>{{courseTitle}}</view>
+  <view class='course_title' wx:if="{{!originator}}">{{courseTitle}}</view>
 
   <view class='order_list mt30'>
     <view class='order_list_tit'>联系人 <text class='red'>*</text></view>
-    <input class='order_input' type='text'></input>
+    <input class='order_input' bindinput='bindName' value="{{name}}" type='text'></input>
   </view>
 
   <view class='order_list'>
     <view class='order_list_tit'>联系电话 <text class='red'>*</text></view>
-    <input class='order_input' type='text'></input>
+    <input class='order_input' bindinput='bindMobile' value="{{mobile}}" type='text'></input>
   </view>
 
-  <view class='order_list max_list'>
+  <view class='order_list max_list' wx:if="{{originator}}">
     <view class='order_list_tit'>试听体验课程 <text class='red'>*</text></view>
     <view class='check_list_all check_list_radio'>
       <!-- <view class='check_list'><icon class="weui-icon-checkbox_circle" type="circle"></icon>零基础学童英语课程</view>
@@ -22,8 +22,8 @@
         <label class="weui-cell weui-check__label" wx:for="{{courseItems}}" wx:key="id">
             <radio class="weui-check" value="{{item.id}}" checked="{{item.checked}}"/>
             <view class="weui-cell__hd weui-check__hd_in-checkbox">
-              <icon class="weui-icon-checkbox_circle" size="23" wx:if="{{courseValue!=item.id}}"></icon>
-              <icon class="weui-icon-checkbox_success_dian" size="23" wx:else="{{courseValue==item.id}}"></icon>
+              <icon class="weui-icon-checkbox_circle" size="23" wx:if="{{courseId!=item.id}}"></icon>
+              <icon class="weui-icon-checkbox_success_dian" size="23" wx:else="{{courseId==item.id}}"></icon>
             </view>
             <view class="weui-cell__bd">{{item.name}} <text class='course_detail' bindtap="courseDetail" data-id="{{item.id}}">了解课程</text></view>
         </label>
@@ -32,7 +32,7 @@
   </view>
 
 
-  <view class='order_list'>
+  <view class='order_list' wx:if="{{originator}}">
     <view class='order_list_tit'>组团人数 <text class='red'>*</text></view>
     <view class="weui-cell weui-cell_select">
       <view class="weui-cell__bd">
@@ -48,7 +48,7 @@
     <view class='order_list_tit'>请选择2项可接受的试听时间 <text class='red'>*</text></view>
     <view class="time_list_box">
     <!-- <view wx:for="{{tryTimeArr}}" wx:if="{{tryTime[index]==item}}">{{item[tryTime[index]]}}</view> -->
-      <view class='time_list' wx:for="{{tryTimeArr}}">
+      <view class='time_list' wx:for="{{tryTimeArr}}" bindtap='changeTime' data-index="{{index}}">
         <view class='time_list_time time_checked' wx:if="{{item.checked}}">{{item.text}}</view>
         <view class='time_list_time' wx:else="{{!item.checked}}">{{item.text}}</view>
       </view>
@@ -60,7 +60,7 @@
     <view class='order_list_tit'>备注说明</view>
 
     <view class="remarks">
-      <textarea class="weui-textarea" placeholder="请填写你对上课内容、授课方式的要求" />
+      <textarea value='{{comments}}' bindinput='bindComments' class="weui-textarea" placeholder="请填写你对上课内容、授课方式的要求" />
     </view>
   </view>
 
@@ -81,9 +81,9 @@
 
 
   <view class='float_bottom'>
-    <view class='btn'>下一步</view>
+    <view class='btn' bindtap='bindPintuan'>下一步</view>
     <text>体验价</text>
-    <view class='price'>¥1194</view>
+    <view class='price'>¥{{amount}}</view>
   </view>
 
 

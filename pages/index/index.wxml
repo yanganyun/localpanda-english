@@ -26,5 +26,23 @@
       <text class="userinfo-nickname">{{userInfo.nickName}}</text>
     </block>
   </view>
+
+  <button class='mt30' type="primary" bindtap='startGroup'>发起拼团</button>
+  
+  
+
+  <view class='group_list_box'>
+    <view class='group_list' wx:for="{{courses}}">
+      <view class='group_list_tit'>团ID：{{item.groupOrderId}}</view>
+      <view class='group_list_user'>
+        <view class='group_list_user'>
+          <view class='pin_list'><image src='https://www.fedrobots.com/images/head1.jpg' width="30%"></image></view>
+          <view class='pin_list'><image src='https://www.fedrobots.com/images/head1.jpg' width="30%"></image></view>
+          <view class='pin_list'><image src='https://www.fedrobots.com/images/head1.jpg' width="30%"></image></view>
+        </view>
+        <button class='mt30' bindtap='addGroup' data-index="{{index}}" data-id="{{item.groupOrderId}}">参加拼团</button>
+      </view>
+    </view>
+  </view>
   
 </view>

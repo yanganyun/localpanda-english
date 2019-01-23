@@ -149,8 +149,6 @@ Page({
         loading: true
       });
 
-      console.log(1111111111111)
-
       wx.request({
         url: 'https://www.svenglish.cn/api/order/group', // 仅为示例，并非真实的接口地址
         data: {
@@ -216,9 +214,11 @@ Page({
       loading: true
     });
 
-    if (!putData.originator){
-      delete putData.courseId
-    }
+    // if (!putData.originator){
+    //   delete putData.courseId
+    // }
+
+    console.log(putData);
 
     wx.request({
       url: 'https://www.svenglish.cn/api/order/course', // 仅为示例，并非真实的接口地址

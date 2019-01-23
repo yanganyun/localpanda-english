@@ -1,5 +1,5 @@
 <!--index.wxml-->
-<view class="container">
+<view class="index_page">
   
   <swiper 
     class='top_banner'
@@ -31,14 +31,14 @@
   
   
 
-  <view class='group_list_box'>
-    <view class='group_list' wx:for="{{courses}}">
-      <view class='group_list_tit'>团ID：{{item.groupOrderId}}</view>
+  <view class='group_list_box mt50'>
+    <view class='group_list'>
+      <view class='group_list_tit'>团ID：148228562</view>
       <view class='group_list_user'>
         <view class='group_list_user'>
-          <view class='pin_list'><image src='https://www.fedrobots.com/images/head1.jpg' width="30%"></image></view>
-          <view class='pin_list'><image src='https://www.fedrobots.com/images/head1.jpg' width="30%"></image></view>
-          <view class='pin_list'><image src='https://www.fedrobots.com/images/head1.jpg' width="30%"></image></view>
+          <view class='pin_list' wx:for="{{courses}}">
+            <image src='https://www.fedrobots.com/images/head1.jpg' width="30%"></image>
+          </view>
         </view>
         <button class='mt30' bindtap='addGroup' data-index="{{index}}" data-id="{{item.groupOrderId}}">参加拼团</button>
       </view>

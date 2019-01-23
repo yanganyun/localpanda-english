@@ -20,7 +20,7 @@ view,block,text,textarea,input{
 .mt20{ margin-top: 20rpx!important;}
 .mt30{ margin-top: 30rpx!important;}
 .mt40{ margin-top: 40rpx!important;}
-
+.mt50{ margin-top: 50rpx!important;}
 
 .btn{
   color: #fff;

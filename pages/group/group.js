@@ -5,8 +5,8 @@ const app = getApp()
 Page({
   data: {
     originator: true,
-    name: '',
-    mobile: '',
+    name: '小璐璐',
+    mobile: '15888888888',
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
@@ -15,7 +15,7 @@ Page({
 
     //课程
     courseTitle: '试听体验课程：儿童外教启蒙/Wonders课程浦东碧云百富丽山庄',
-    courseId: '',
+    courseId: '10002',
     courseItems:[
       { 'name':'零基础学童英语课程',id: 10001},
       { 'name': '高阶版对接入学英语课程', id: 10002 },
@@ -28,10 +28,10 @@ Page({
 
     //可选时间
     tryTimeArr: [
-      { keyName: 'WORKDAY_DAY', text: '工作日白天 9:00~12:00', checked: false},
-      { keyName: 'WORKDAY_NIGHT', text: '工作日晚上 18:00~20:00', checked:false},
-      { keyName: 'WEEKEND_DAY', text: '双休日白天 9:00~12:00', checked: false},
-      { keyName: 'WEEKEND_NIGHT', text: '双休日晚上 18:00~20:00', checked: false },
+      { keyName: 'WORKDAY_DAY', text: '工作日白天 10:00~18:00', checked: false},
+      { keyName: 'WORKDAY_NIGHT', text: '工作日晚上 18:00~19:00', checked:false},
+      { keyName: 'WEEKEND_DAY', text: '双休日白天 10:00~18:00', checked: false},
+      { keyName: 'WEEKEND_NIGHT', text: '双休日晚上 18:00~19:00', checked: false },
     ],
     tryTime: [],
 
@@ -40,7 +40,8 @@ Page({
     //提供场地
     hasSpace:false,
 
-    amount: 6388
+    amount: 0.01,
+    orderId: ''
 
   },
   //选择课程
@@ -48,6 +49,14 @@ Page({
     this.setData({
       courseId: e.detail.value
     });
+  },
+  getCourseName(courseId){
+    var courseItems = this.data.courseItems;
+    for (var i = 0; i < courseItems.length;i++){
+      if (courseItems[i].id = courseId){
+        return courseItems[i].name;
+      }
+    }
   },
   //查看课程详情
   courseDetail(e){
@@ -142,47 +151,45 @@ Page({
     }else{
       
       //检测并开启loading
-      if (this.data.loading) {
-        return;
-      }
-      this.setData({
-        loading: true
-      });
+      wx.showLoading({
+        title: '数据加载中',
+        mask: true
+      })
+      
 
       wx.request({
         url: 'https://www.svenglish.cn/api/order/group', // 仅为示例，并非真实的接口地址
         data: {
           "courseId": this.data.courseId,
-          "groupNumberNeed": this.data.people[this.data.peopleIndex]
+          // "groupNumberNeed": this.data.people[this.data.peopleIndex]
         },
         method: 'PUT',
         header: {
           'content-type': 'application/json' // 默认值
         },
         success(res) {
+
+          //关闭loading
+          wx.hideLoading();
+          
           if (res.data.code==1) {
             self.setData({
               groupOrderId: res.data.data.groupOrderId
             });
             self.addGroup();
           }else{
-            //关闭loading
-            self.setData({
-              loading: false
-            });
+            
             wx.showModal({
-              content: '请求失败，请重试！',
+              content: res.data.msg,
               showCancel: false
             });
           }
         },
         fail(res) {
           //关闭loading
-          self.setData({
-            loading: false
-          });
+          wx.hideLoading();
           wx.showModal({
-            content: '请求失败，请重试！',
+            content: JSON.stringify(res),
             showCancel: false
           });
         }
@@ -207,12 +214,10 @@ Page({
     };
 
     //检测并开启loading
-    if (this.data.loading) {
-      return;
-    }
-    this.setData({
-      loading: true
-    });
+    wx.showLoading({
+      title: '数据加载中',
+      mask: true
+    })
 
     // if (!putData.originator){
     //   delete putData.courseId
@@ -228,11 +233,17 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success(res) {
-
-        if (res.data.code!=1) {
+        var resData = res.data;
+        //成功
+        if (resData.code==1) {
+          //拼团成功，调取支付
+          self.pay(resData.data.orderId);
+        }else{
           //关闭loading
-          self.setData({
-            loading: false
+          wx.hideLoading();
+          wx.showModal({
+            content: resData.msg,
+            showCancel: false
           });
         }
 
@@ -240,13 +251,112 @@ Page({
       },
       fail(res) {
         //关闭loading
-        self.setData({
-          loading: false
+        wx.hideLoading();
+        wx.showModal({
+          content: '请求失败，请重试！',
+          showCancel: false
         });
       }
     })
   },
+  pay(orderId){
+    var self = this;
+    var postData = {
+      "amount": this.data.amount,
+      "businessType": "COURSE",
+      "tradeType": "JSAPI",
+      "openId": app.globalData.openId,
+      "orderId": orderId,
+      "productDesc": this.getCourseName(this.data.courseId),
+    };
+    this.setData({
+      orderId: orderId
+    })
+    wx.request({
+      url: 'https://www.svenglish.cn/api/payment/pay/wechat', // 仅为示例，并非真实的接口地址
+      data: postData,
+      method: 'POST',
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success(res) {
+        //关闭loading
+        wx.hideLoading();
+        // self.setData({
+        //   loading: false
+        // });
 
+        var resData = res.data;
+        if (resData.code == 1) {
+          var data = resData.data;
+          //弹出微信支付
+          self.showWXpay(data);
+          
+        } else {
+          wx.showModal({
+            content: resData.msg,
+            showCancel: false
+          });
+
+        }
+
+
+      },
+      fail(res) {
+        //关闭loading
+        self.setData({
+          loading: false
+        });
+        wx.showModal({
+          content: '请求失败，请重试！',
+          showCancel: false
+        });
+      }
+    })
+    
+    // wx.navigateTo({
+    //   url: '/pages/pay/success/success'
+    // });
+  },
+  showWXpay(data){
+    var self = this;
+    //吊起微信支付
+    wx.requestPayment({
+      timeStamp: data.timeStamp,
+      nonceStr: data.nonceStr,
+      package: 'prepay_id=' + data.prepayId,
+      signType: data.signType,
+      paySign: data.paySign,
+      //支付成功
+      success(res) {
+        console.log(res);
+        wx.showModal({
+          content: '支付成功',
+          showCancel: false,
+          success: function (res) {
+            if (res.confirm) {
+              wx.navigateTo({
+                url: '/pages/pay/success/success'
+              });
+            }
+          }
+        });
+      },
+      //支付失败
+      fail(res) {
+        wx.showModal({
+          content: '支付失败，请重新支付！',
+          confirmText: '重新支付',
+          showCancel: false,
+          success: function (res) {
+            if (res.confirm) {
+              self.showWXpay(data);
+            }
+          }
+        });
+      }
+    });
+  },
   //拼团
   bindPintuan:function(){
     var self = this;

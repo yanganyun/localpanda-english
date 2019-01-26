@@ -3,17 +3,7 @@
 
   <view class='course_title' wx:if="{{!originator}}">{{courseTitle}}</view>
 
-  <view class='order_list mt30'>
-    <view class='order_list_tit'>联系人 <text class='red'>*</text></view>
-    <input class='order_input' bindinput='bindName' value="{{name}}" type='text'></input>
-  </view>
-
-  <view class='order_list'>
-    <view class='order_list_tit'>联系电话 <text class='red'>*</text></view>
-    <input class='order_input' bindinput='bindMobile' value="{{mobile}}" type='text'></input>
-  </view>
-
-  <view class='order_list max_list' wx:if="{{originator}}">
+  <view class='order_list max_list mt30' wx:if="{{originator}}">
     <view class='order_list_tit'>试听体验课程 <text class='red'>*</text></view>
     <view class='check_list_all check_list_radio'>
       <!-- <view class='check_list'><icon class="weui-icon-checkbox_circle" type="circle"></icon>零基础学童英语课程</view>
@@ -31,8 +21,20 @@
     </view>
   </view>
 
+  <view class='order_list'>
+    <view class='order_list_tit'>联系人 <text class='red'>*</text></view>
+    <input class='order_input' bindinput='bindName' value="{{name}}" type='text'></input>
+  </view>
 
-  <view class='order_list' wx:if="{{originator}}">
+  <view class='order_list'>
+    <view class='order_list_tit'>联系电话 <text class='red'>*</text></view>
+    <input class='order_input' bindinput='bindMobile' value="{{mobile}}" type='text' placeholder='用于拼班时间地点确认' placeholder-class="placeholder"></input>
+  </view>
+
+  
+
+
+  <!-- <view class='order_list' wx:if="{{originator}}">
     <view class='order_list_tit'>组团人数 <text class='red'>*</text></view>
     <view class="weui-cell weui-cell_select">
       <view class="weui-cell__bd">
@@ -41,7 +43,7 @@
         </picker>
       </view>
     </view>
-  </view>
+  </view> -->
 
 
   <view class='order_list max_list'>
@@ -56,13 +58,13 @@
   </view>
 
 
-  <view class='order_list max_list'>
+  <!-- <view class='order_list max_list'>
     <view class='order_list_tit'>备注说明</view>
 
     <view class="remarks">
       <textarea value='{{comments}}' bindinput='bindComments' class="weui-textarea" placeholder="请填写你对上课内容、授课方式的要求" />
     </view>
-  </view>
+  </view> -->
 
 
   <view class='order_list max_list'>
@@ -73,8 +75,10 @@
             <icon class="weui-icon-checkbox_circle" type="circle" size="23" wx:if="{{!hasSpace}}"></icon>
             <icon class="weui-icon-checkbox_success" type="success" size="23" wx:if="{{hasSpace}}"></icon>
           </view>
-          <view class="weui-cell__bd">我可以提供试听体验课场地</view>
+          <view class="weui-cell__bd">我不方便提供试听体验课场地</view>
+          
       </label>
+      <view class="space_tip">(试听课地点通常安排在试听学员家中。后续课程上课地点由拼课家长协商另行确定)</view>
     </checkbox-group>
   </view>
 

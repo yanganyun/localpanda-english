@@ -1,7 +1,22 @@
 <!--index.wxml-->
 <view class="index_page">
+
+  <view class='header'>
+    <view class='logo'><image src='../../images/logo.png'></image></view>
+  </view>
+
+  <view class='chengnuo'><image src='../../images/chengnuo.jpg'></image></view>
+  <view class='service'><image src='../../images/service.png'></image></view>
+
+  <view class='btn_box'>
+    
+    <button class='btn' wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo">发起拼课</button>
+    <button class='btn' wx:else bindtap='startGroup'>发起拼课</button>
+
+    <view class='btn btn_line'>分享给朋友</view>
+  </view>
   
-  <swiper 
+  <!-- <swiper 
     class='top_banner'
     indicator-dots="true" 
     indicator-color="rgba(0,0,0,0.3)" 
@@ -16,22 +31,22 @@
         <image src="{{item}}" class="slide-image" bindload="imageLoad" />
       </swiper-item>
     </block>
-  </swiper>
+  </swiper> -->
   
 
-  <view class="userinfo">
+  <!-- <view class="userinfo">
     <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
     <block wx:else>
       <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
       <text class="userinfo-nickname">{{userInfo.nickName}}</text>
     </block>
-  </view>
+  </view> -->
 
-  <button class='mt30' type="primary" bindtap='startGroup'>发起拼团</button>
+  <!-- <button class='mt30' type="primary" bindtap='startGroup'>发起拼团</button> -->
   
   
 
-  <view class='group_list_box mt50'>
+  <!-- <view class='group_list_box mt50'>
     <view class='group_list'>
       <view class='group_list_tit'>团ID：148228562</view>
       <view class='group_list_user'>
@@ -40,9 +55,10 @@
             <image src='https://www.fedrobots.com/images/head1.jpg' width="30%"></image>
           </view>
         </view>
-        <button class='mt30' bindtap='addGroup' data-index="{{index}}" data-id="{{item.groupOrderId}}">参加拼团</button>
+        
+        <button class='mt30' bindtap='addGroup' data-index="{{index}}" data-id="{{courses[0].groupOrderId}}">参加拼团</button>
       </view>
     </view>
-  </view>
+  </view> -->
   
 </view>

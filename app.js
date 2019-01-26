@@ -18,6 +18,7 @@ App({
     // 获取用户信息
     wx.getSetting({
       success: res => {
+        console.log(res);
         
         if (res.authSetting['scope.userInfo']) {
           // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
@@ -33,7 +34,7 @@ App({
               };
 
               wx.request({
-                url: 'https://www.svenglish.cn/api/wechat/user-info', // 仅为示例，并非真实的接口地址
+                url: 'https://www.svenglish.cn/api/wechat/login', // 仅为示例，并非真实的接口地址
                 data: putData,
                 method: 'POST',
                 header: {

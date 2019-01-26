@@ -138,9 +138,11 @@
   font-weight: bold;
 }
 
-
-
-
+.space_tip{
+  font-size: 24rpx;
+  color:#999;
+  padding-left: 74rpx;
+}
 
 
 

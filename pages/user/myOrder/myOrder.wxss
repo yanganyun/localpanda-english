@@ -1,0 +1,33 @@
+/**index.wxss**/
+.my_order{
+  background-color: #f8f8f8;
+  overflow: hidden;
+  min-height: 100vh;
+}
+.page_box{
+  margin-top: 10px;
+  padding: 10px 15px;
+  background-color: #fff;
+}
+.page_tit{
+  font-size: 32rpx;
+}
+.page_tit text{
+  font-weight: bold;
+}
+.order_info{
+  font-size: 26rpx;
+}
+.order_btn_box{
+  overflow: hidden;
+}
+.order_btn_box .btn{
+  float: right;
+  width: 200rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  font-size: 28rpx;
+  padding: 0 30rpx;
+  border-radius: 30rpx;
+  margin-left: 20rpx;
+}

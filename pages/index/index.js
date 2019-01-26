@@ -43,7 +43,24 @@ Page({
       url: '../logs/logs'
     })
   },
-  
+  getUser(userIds){
+    var self = this;
+    wx.request({
+      url: 'https://www.svenglish.cn/api/wechat/user-info?userId=' + userIds.join(','), // 仅为示例，并非真实的接口地址
+      method: 'GET',
+      success(res) {
+        if (res.data.code == 1) {
+          var courses = self.data.courses;
+          for (var i = 0; i < courses.length; i++) {
+            
+          }
+        }
+      },
+      fail(res) {
+
+      }
+    })
+  },
   //获取列表
   getCourses(){
     var self=this;
@@ -58,9 +75,18 @@ Page({
       },
       success(res) {
         if (res.data.code==1){
+          var courses = res.data.data;
           self.setData({
-            courses: res.data.data
-          })
+            courses: courses
+          });
+
+          var openIdArr = [];
+          for (var i = 0; i < courses.length;i++){
+            openIdArr.push(courses[i].openId);
+          }
+          self.getUser(openIdArr);
+          
+
         }
       },
       fail(res) {
@@ -106,7 +132,34 @@ Page({
     this.setData({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
-    })
+    });
+
+    var putData = {
+      code: app.globalData.loginCode,
+      encryptedData: e.detail.encryptedData,
+      iv: e.detail.iv
+    };
+
+    wx.request({
+      url: 'https://www.svenglish.cn/api/wechat/login', // 仅为示例，并非真实的接口地址
+      data: putData,
+      method: 'POST',
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: res => {
+
+        if (res.data.code == 1) {
+          app.globalData.openId = res.data.data.openId;
+          wx.navigateTo({
+            url: '/pages/group/group',
+          })
+        }
+
+      }
+    });
+
+    
   },
   
   onShareAppMessage: function () {
@@ -118,18 +171,18 @@ Page({
   startGroup() {
     wx.navigateTo({
       url: '/pages/group/group',
-    })
+    });
   },
   addGroup(e) {
     var dataset = e.currentTarget.dataset;
     //判断是否已经拼团
-    if (app.globalData.openId == this.data.courses[dataset.index].openId){
-      wx.showModal({
-        content: '您已经参加过了，请查看我的拼团！',
-        showCancel: false
-      });
-      return false;
-    }
+    // if (app.globalData.openId == this.data.courses[dataset.index].openId){
+    //   wx.showModal({
+    //     content: '您已经参加过了，请查看我的拼团！',
+    //     showCancel: false
+    //   });
+    //   return false;
+    // }
     wx.navigateTo({
       url: '/pages/group/group?groupOrderId=' + dataset.id,
     })

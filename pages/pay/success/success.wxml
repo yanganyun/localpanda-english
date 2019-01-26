@@ -1,0 +1,14 @@
+<!--index.wxml-->
+<view class="page_pay_end">
+
+  <view class="page_box">
+    <icon type="success" size="80"></icon>
+    <view class="pay_tip">支付成功</view>
+  </view>
+
+  <view class='btn_box'>
+    <view class='btn' bindtap='goMyOrder'>查看我的订单</view>
+  </view>
+
+  
+</view>

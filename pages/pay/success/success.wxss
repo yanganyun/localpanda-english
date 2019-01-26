@@ -1,0 +1,14 @@
+.page_box{
+  padding: 30rpx;
+  text-align: center;
+}
+.pay_tip{ margin-top: 20rpx;}
+.btn_box{
+  padding: 30rpx 0;
+  text-align: center;
+}
+.btn_box .btn{
+  display: inline-block;
+  margin: 0 1%;
+  width: 45%;
+}

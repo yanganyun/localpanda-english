@@ -3,6 +3,8 @@
   background-color: #f8f8f8;
   overflow: hidden;
   min-height: 100vh;
+  padding-bottom: 100rpx;
+  box-sizing: border-box;
 }
 .page_box{
   margin-top: 10px;
@@ -27,7 +29,15 @@
   height: 60rpx;
   line-height: 60rpx;
   font-size: 28rpx;
-  padding: 0 30rpx;
+  padding: 0;
   border-radius: 30rpx;
   margin-left: 20rpx;
 }
+
+.no_order{
+  font-size:28rpx;
+  color: #999;
+  text-align: center;
+  padding: 100rpx 30rpx;
+}
+.no_order .btn{ vertical-align: middle; margin-left: 10rpx; display: inline-block; width: 160rpx; height: 60rpx; line-height: 60rpx; padding: 0 0}

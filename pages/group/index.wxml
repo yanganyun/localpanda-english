@@ -2,16 +2,55 @@
 <view class="index_page">
 
   <view class='header'>
-    <view class='logo'><image src='../../images/logo.png'></image></view>
+    <view class='logo' bindtap='goHome'><image src='../../images/logo.png'></image></view>
   </view>
-
-  
 
   <view class='main_box banner'><image src='../../images/home/banner.jpg'></image></view>
 
   <view class='main_box home_main1'><image src='../../images/home/home_main1.png'></image></view>
 
-  
+
+  <view class='main_box home_main2'>
+    <view class='group_box'>
+      <view class='group_tit' wx:if="{{!isEnd && countdown>0}}">当前还有{{groupInfo.groupMaxNumber-courses.length}}个名额</view>
+      <view class='group_tit' wx:if="{{isEnd && courses.length<2}}">倒计时结束，人数不满未能成班</view>
+      <view class='group_tit' wx:if="{{isEnd && courses.length>1}}">试听拼课已成功！！！</view>
+      
+
+      <view class='group_time' wx:if="{{!isEnd}}">倒计时：{{groupEndTime}}</view>
+
+      <view class='group_list_box'>
+        <view class="group_list {{index<courses.length?'group_active':''}}" wx:for="{{groupInfo.groupMaxNumber}}">
+          <view class='group_photo'><image src='{{courses[index].avatarUrl}}'></image></view>
+          <view class='group_username'>{{(index < courses.length) ? courses[index].userName : '团员'+(index+1)}}</view>
+        </view>
+      </view>
+
+      
+      <view class='group_text' wx:if="{{isEnd && courses.length>1}}"><view class='text_dian'></view>我们的老师将会与您与组员确定具体试听时间及地点</view>
+
+      <view wx:else>
+        <view class='group_text'><view class='text_dian'></view>试听人数越多，后续课程拼班成功率越高，实际课程预订价格分摊更享优惠</view>
+        <view class='group_text'><view class='text_dian'></view>成班后我们的老师将会与您与组员确定具体试听时间及地点</view>
+      </view>
+      
+    </view>
+
+    <view class='wx_tip'>微信关注「硅谷少儿英语」了解更多资讯</view>
+
+    <view class='btn_box mt30'>
+    
+      <button class='btn' wx:if="{{!hasUserInfo && canIUse && isEnd}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo">发起新拼课</button>
+      <button class='btn' wx:elif="{{isEnd}}" bindtap='startGroup'>发起新拼课</button>
+
+      <button class='btn' wx:if="{{!hasUserInfo && canIUse && !isEnd}}" data-id="{{groupInfo.groupOrderId}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo">我要参加</button>
+      <button class='btn' wx:elif="{{!isEnd && !isJoin}}" bindtap='addGroup'>我要参加</button>
+
+      <button class="btn {{isJoin?'wmax':'btn_line'}}" open-type='share'>分享给朋友</button>
+    </view>
+    
+  </view>
+
 
 
   <view class='main_box home_main3'><image src='../../images/home/home_main3.png'></image></view>
@@ -42,8 +81,6 @@
     </swiper>
   </view>
 
-
-  
   <view class='main_box home_main6'>
     <text class='index_tit'>外教/中教严选把关，是老师\n更是你孩子的朋友</text>
     <view class='swiper_teacher'>
@@ -70,20 +107,18 @@
     </view>
   </view>
 
-
-
   <view class='main_box home_main7'><image src='../../images/home/home_main7.png'></image></view>
 
   <view class='chengnuo'><image src='../../images/home/chengnuo.jpg'></image></view>
   <view class='service'><image src='../../images/home/service.png'></image></view>
 
-  <view class='btn_box'>
+  <!-- <view class='btn_box'>
     
     <button class='btn' wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo">发起拼课</button>
     <button class='btn' wx:else bindtap='startGroup'>发起拼课</button>
 
     <button class='btn btn_line' open-type='share'>分享给朋友</button>
-  </view>
+  </view> -->
   
   <!-- <swiper 
     class='top_banner'

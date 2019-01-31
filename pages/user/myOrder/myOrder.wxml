@@ -1,18 +1,32 @@
 <!--index.wxml-->
 <view class="my_order">
 
-  <view class="page_box">
-    <view class="page_tit"><text>【试听课】</text>零基础孩童XXXXXXXXX课程</view>
-    <view class='order_info'>当前状态：拼班中</view>
-    <view class='order_info'>发起时间：2019-01-01 20:08</view>
-    <view class='order_info'>截止时间：2019-01-08 20:09</view>
-    <view class='order_info'>拼班名额：4人</view>
-    <view class='order_info'>已拼人数：2人</view>
+  <view class="page_box" wx:for="{{orderList}}">
+    <view bindtap='goDetail' data-grouporderid='{{item.groupOrderId}}'>
+      <view class="page_tit"><text>【试听课】</text>{{item.courseName}}</view>
+      <view class='order_info' wx:if="{{item.status=='GROUP_INIT'}}">当前状态：待成团</view>
+      <view class='order_info' wx:elif="{{item.status=='GROUP_PROGRESS'}}">当前状态：拼团中</view>
+      <view class='order_info' wx:elif="{{item.status=='GROUP_SUCCESS'}}">当前状态：拼团成功</view>
+      <view class='order_info' wx:elif="{{item.status=='GROUP_FAIL'}}">当前状态：拼团失败</view>
 
+
+
+      <view class='order_info'>发起时间：{{item.startTime}}</view>
+      <view class='order_info'>截止时间：{{item.endTime}}</view>
+      <view class='order_info'>拼班名额：{{item.groupMaxNumber}}人</view>
+      <view class='order_info'>已拼人数：{{item.joinNumber}}人</view>
+    </view>
     <view class='order_btn_box'>
-      <button class='btn' bindtap='bindShare' open-type='share'>分享给朋友</button>
-      <button class='btn'>再次组团</button>
+      <button class='btn' open-type='share' data-sharegrouporderid='{{item.groupOrderId}}' data-sharecourseId="{{item.courseId}}" >分享给朋友</button>
+      <!-- <button class='btn'>再次组团</button> -->
     </view>
   </view>
+
+  <view class='page_box' wx:if="{{!orderList.length}}">
+    
+    <view class="no_order" wx:if="{{!hasUserInfo && canIUse}}">您还没登录，请 <button class='btn' open-type="getUserInfo" bindgetuserinfo="getUserInfo">登录</button></view>
+    <view class="no_order" wx:else>{{isload?'没有拼课信息':'加载中...'}}</view>
+  </view>
+  
   
 </view>

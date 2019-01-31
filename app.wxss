@@ -15,7 +15,11 @@ view,block,text,textarea,input{
   overflow: hidden;
 } 
 
-.red{ color: #f00;}
+.wmax{
+  width: 100%!important;
+}
+
+.red{ color: #f00!important;}
 
 .mt20{ margin-top: 20rpx!important;}
 .mt30{ margin-top: 30rpx!important;}

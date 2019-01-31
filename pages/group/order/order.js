@@ -5,8 +5,8 @@ const app = getApp()
 Page({
   data: {
     originator: true,
-    name: '小璐璐',
-    mobile: '15888888888',
+    name: '',
+    mobile: '',
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
@@ -14,13 +14,9 @@ Page({
     groupOrderId:null,
 
     //课程
-    courseTitle: '试听体验课程：儿童外教启蒙/Wonders课程浦东碧云百富丽山庄',
-    courseId: '10002',
-    courseItems:[
-      { 'name':'零基础学童英语课程',id: 10001},
-      { 'name': '高阶版对接入学英语课程', id: 10002 },
-      { 'name': '初中英语课程', id: 10003 },
-    ],
+    courseTitle: '',
+    courseId: '',
+    courseItems:[],
 
     //组团人数
     people: [2,3,4,5],
@@ -82,10 +78,11 @@ Page({
       if (newData[i].checked){
         checkNum++;
       }
-    }
-    if (checkNum > 1 && !newData[index].checked){
-      return;
-    }
+    };
+    
+    // if (checkNum > 1 && !newData[index].checked){
+    //   return;
+    // }
 
     
     newData[index].checked = !newData[index].checked;
@@ -128,7 +125,12 @@ Page({
   createGroup(){
     var self = this;
 
-    if (self.data.name == ''){
+    if (!self.data.courseId) {
+      wx.showModal({
+        content: '请选择体验课程',
+        showCancel: false
+      });
+    }else if (self.data.name == ''){
       wx.showModal({
         content: '请填写联系人',
         showCancel: false
@@ -138,14 +140,9 @@ Page({
         content: '请填写正确的联系电话',
         showCancel: false
       });
-    } else if (!self.data.courseId) {
+    } else if (self.data.tryTime.length < 2) {
       wx.showModal({
-        content: '请选择体验课程',
-        showCancel: false
-      });
-    } else if (self.data.tryTime.length==0) {
-      wx.showModal({
-        content: '请选择试听时间',
+        content: '请选择2项您最方便试听的时间',
         showCancel: false
       });
     }else{
@@ -210,7 +207,7 @@ Page({
       "contactPhone": this.data.mobile,
       "amount": this.data.amount,  //价格
       "comments": this.data.comments,
-      "provideSpace": this.data.hasSpace,
+      "provideSpace": !this.data.hasSpace,
     };
 
     //检测并开启loading
@@ -336,7 +333,7 @@ Page({
           success: function (res) {
             if (res.confirm) {
               wx.navigateTo({
-                url: '/pages/pay/success/success'
+                url: '/pages/group/index?groupOrderId=' + self.data.groupOrderId
               });
             }
           }
@@ -347,7 +344,7 @@ Page({
         wx.showModal({
           content: '支付失败，请重新支付！',
           confirmText: '重新支付',
-          showCancel: false,
+          showCancel: true,
           success: function (res) {
             if (res.confirm) {
               self.showWXpay(data);
@@ -362,7 +359,6 @@ Page({
     var self = this;
     if (this.data.groupOrderId){
       
-
       if (self.data.name == '') {
         wx.showModal({
           content: '请填写联系人',
@@ -373,9 +369,9 @@ Page({
           content: '请填写正确的联系电话',
           showCancel: false
         });
-      } else if (self.data.tryTime.length == 0) {
+      } else if (self.data.tryTime.length < 2) {
         wx.showModal({
-          content: '请选择试听时间',
+          content: '请选择2项您最方便试听的时间',
           showCancel: false
         });
       } else {
@@ -431,7 +427,10 @@ Page({
     }
 
 
-
+    //读取课程
+    this.setData({
+      courseItems: app.globalData.courseItems
+    })
     
   }
 })

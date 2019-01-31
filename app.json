@@ -1,17 +1,18 @@
 {
   "pages":[
-    "pages/user/myOrder/myOrder",
-    "pages/pay/success/success",
-    "pages/group/group",
     "pages/index/index",
+    "pages/group/index",
+    "pages/group/order/order",
     "pages/class/class",
     "pages/user/user",
-    "pages/about/about"
+    "pages/about/about",
+    "pages/user/myOrder/myOrder",
+    "pages/pay/success/success"
   ],
   "window":{
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "乐盼达英语",
+    "navigationBarTitleText": "硅谷少儿英语",
     "navigationBarTextStyle":"black"
   },
   "tabBar": {
@@ -20,20 +21,20 @@
       {
         "pagePath": "pages/index/index",
         "text": "首页",
-        "iconPath": "images/all.png",
-        "selectedIconPath": "images/all2.png"
+        "iconPath": "images/tabBar/home1.png",
+        "selectedIconPath": "images/tabBar/home2.png"
       },
       {
         "pagePath": "pages/user/myOrder/myOrder",
-        "text": "我的订单",
-        "iconPath": "images/pic.png",
-        "selectedIconPath": "images/pic2.png"
+        "text": "我的拼课",
+        "iconPath": "images/tabBar/order1.png",
+        "selectedIconPath": "images/tabBar/order2.png"
       },
       {
         "pagePath": "pages/about/about",
         "text": "关于我们",
-        "iconPath": "images/account.png",
-        "selectedIconPath": "images/account2.png"
+        "iconPath": "images/tabBar/user1.png",
+        "selectedIconPath": "images/tabBar/user2.png"
       }
     ]
   }

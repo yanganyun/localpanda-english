@@ -2,12 +2,13 @@
 <view class="container">
 
   <view class="page_box">
-    <view class="page_tit">About Local Panda</view>
-    <text class="about_info">We are a new, different kind of China travel platform that is dedicated to improving tourists' travel experiences. Made up of a diverse team of Chinese and Westerners, we share a fascination with China and a deep love of travel.</text>
-    <text class="about_info">Our goal is to make traveling in China burden-free by delivering real, memorable experiences, connecting customers directly with knowledgeable local guides, personalizing trip-planning, and streamlining the booking process.</text>
+    <view class="page_tit">关于硅谷少儿英语</view>
+    <text class="about_info">我们坚信教育绝非千篇一律，我们坚信有效的少儿英语学习既不等于唱唱跳跳的所谓快乐英语，也不等于填鸭式的音标语法加词汇。有效的英语教育需要“科学的方法论+经过验证的体系+优质的教材+有经验、爱学生的老师”。</text>
+    <text class="about_info">硅谷少儿英语是上海东觅西信息技术有限公司旗下的少儿教育品牌，以来自美国硅谷和斯坦福大学的先进教育理念为方法论基础，打造适合中国孩子的少儿教育产品。 创始人曾俊先生于2016年斯坦福大学深造期间创办本公司，旨在融合东西方教育的优点，帮助中国孩子更有效、更科学地学习和成长。
+　公司团队成员毕业于北大、清华、复旦、斯坦福大学、加州伯克利大学等世界一流大学，既有知名的教育专家又有少儿英语培训行业资深人士。授课老师既包括来自欧美国家的具有丰富教学经验的外教，也有拥有欧美留学经历的熟悉中外文化的中国老师。</text>
   </view>
 
-  <view class="page_box">
+  <!-- <view class="page_box">
     <view class="page_tit">联系我们</view>
     <view class='form_list'>
       <input placeholder="姓名" bindinput='bindName' />
@@ -33,7 +34,7 @@
     </view>
 
     
-  </view>
+  </view> -->
 
   
   

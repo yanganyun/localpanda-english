@@ -15,7 +15,8 @@
               <icon class="weui-icon-checkbox_circle" size="23" wx:if="{{courseId!=item.id}}"></icon>
               <icon class="weui-icon-checkbox_success_dian" size="23" wx:else="{{courseId==item.id}}"></icon>
             </view>
-            <view class="weui-cell__bd">{{item.name}} <text class='course_detail' bindtap="courseDetail" data-id="{{item.id}}">了解课程</text></view>
+            <!-- <view class="weui-cell__bd">{{item.name}} <text class='course_detail' bindtap="courseDetail" data-id="{{item.id}}">了解课程</text></view> -->
+            <view class="weui-cell__bd">{{item.name}}</view>
         </label>
       </radio-group>
     </view>
@@ -23,12 +24,12 @@
 
   <view class='order_list'>
     <view class='order_list_tit'>联系人 <text class='red'>*</text></view>
-    <input class='order_input' bindinput='bindName' value="{{name}}" type='text'></input>
+    <input class='order_input' bindinput='bindName' value="{{name}}" type='text' maxlength='50'></input>
   </view>
 
   <view class='order_list'>
     <view class='order_list_tit'>联系电话 <text class='red'>*</text></view>
-    <input class='order_input' bindinput='bindMobile' value="{{mobile}}" type='text' placeholder='用于拼班时间地点确认' placeholder-class="placeholder"></input>
+    <input class='order_input' bindinput='bindMobile' value="{{mobile}}" type='text' placeholder='用于拼班时间地点确认' placeholder-class="placeholder" maxlength='11'></input>
   </view>
 
   

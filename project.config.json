@@ -37,7 +37,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 2,
+			"current": 4,
 			"list": [
 				{
 					"id": -1,
@@ -64,10 +64,10 @@
 					"query": ""
 				},
 				{
-					"id": -1,
+					"id": 4,
 					"name": "入团页面",
 					"pathName": "pages/group/index",
-					"query": "groupOrderId=148662106"
+					"query": "groupOrderId=148674058"
 				}
 			]
 		}
